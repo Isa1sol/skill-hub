@@ -1,47 +1,62 @@
-from flask import render_template, request, jsonify, session, redirect, url_for
+from flask import render_template, request, jsonify, session, redirect, url_for, flash
 from flask_login import login_user, logout_user, current_user, login_required
 from app import app, db
 from app.models import User
+from werkzeug.security import check_password_hash, generate_password_hash
 
 # ⌨️ Home Page (Postmodern Styled)
 @app.route('/')
 def home():
     return render_template("index.html")
 
-# 📝 Registration Page (Form or JSON)
+# 📝 Registration Page (Form Handling)
 @app.route('/register', methods=['GET', 'POST'])
 def register():
     if request.method == 'POST':
-        data = request.get_json() or request.form
-        username = data.get('username')
-        password = data.get('password')
-        role = data.get('role', 'student')
+        username = request.form.get('username')
+        password = request.form.get('password')
+        role = request.form.get('role', 'student')
 
+        # Ensure that username and password are provided
         if not username or not password:
-            return jsonify({"message": "Missing fields"}), 400
+            flash("Please fill out all fields.")
+            return redirect(url_for('register'))
 
+        # Check if username already exists
         if User.query.filter_by(username=username).first():
-            return jsonify({"message": "Username already exists"}), 409
+            flash("Username already exists.")
+            return redirect(url_for('register'))
 
-        new_user = User(username=username, password=password, role=role)
+        # Create a new user
+        hashed_pw = generate_password_hash(password)
+        new_user = User(username=username, password=hashed_pw, role=role)
         db.session.add(new_user)
         db.session.commit()
-        return jsonify({"message": "Registered successfully!"})
+
+        # Log in the new user
+        login_user(new_user)
+        flash("Registered successfully!")
+        return redirect(url_for('home'))
+
     return render_template("register.html")
 
-# 🔐 Login Page (Form or JSON)
+# 🔐 Login Page (Form Handling)
 @app.route('/login', methods=['GET', 'POST'])
 def login():
     if request.method == 'POST':
-        data = request.get_json() or request.form
-        username = data.get('username')
-        password = data.get('password')
+        username = request.form.get('username')
+        password = request.form.get('password')
 
-        user = User.query.filter_by(username=username, password=password).first()
-        if user:
+        # Check if user exists and validate password
+        user = User.query.filter_by(username=username).first()
+        if user and check_password_hash(user.password, password):
             login_user(user)
-            return jsonify({"message": "Logged in", "role": user.role})
-        return jsonify({"message": "Invalid credentials"}), 401
+            flash("Logged in successfully!")
+            return redirect(url_for('dashboard'))  # Redirect to dashboard after login
+        else:
+            flash("Invalid credentials")
+            return redirect(url_for('login'))
+
     return render_template("login.html")
 
 # 🧠 Dashboard Route with Role-Based Display
