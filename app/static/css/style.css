@@ -1,0 +1,109 @@
+/* Base Styles */
+body {
+    font-family: 'Arial', sans-serif;
+    background: linear-gradient(to right, #ff758c, #ff7eb3);
+    color: #fff;
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+a {
+    text-decoration: none;
+    color: #ffcb77;
+}
+
+h1, h2, h3 {
+    color: #fff;
+}
+
+/* Login and Register Forms */
+.login-container, .register-container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    min-height: 100vh;
+}
+
+.login-box, .register-box {
+    background: rgba(255, 255, 255, 0.1);
+    padding: 30px;
+    border-radius: 15px;
+    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.3);
+    width: 100%;
+    max-width: 400px;
+    text-align: center;
+}
+
+.input-group {
+    margin-bottom: 15px;
+}
+
+input[type="text"], input[type="password"], select {
+    width: 100%;
+    padding: 10px;
+    margin-top: 5px;
+    border: none;
+    border-radius: 8px;
+    background-color: #fff;
+    color: #333;
+}
+
+button.btn {
+    background: #ff7eb3;
+    padding: 15px 30px;
+    border: none;
+    border-radius: 10px;
+    cursor: pointer;
+    transition: all 0.3s;
+}
+
+button.btn:hover {
+    background: #ff758c;
+}
+
+form p {
+    margin-top: 20px;
+}
+
+/* Dashboard */
+.dashboard-container {
+    padding: 40px 20px;
+}
+
+.header {
+    text-align: center;
+    margin-bottom: 30px;
+}
+
+nav a {
+    margin: 0 15px;
+    color: #ffcb77;
+    font-weight: bold;
+}
+
+.dashboard-content {
+    text-align: center;
+}
+
+.course-list, .project-list {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 20px;
+}
+
+.course-card, .project-card {
+    background: rgba(255, 255, 255, 0.2);
+    padding: 20px;
+    border-radius: 10px;
+    box-shadow: 0 5px 10px rgba(0, 0, 0, 0.2);
+    transition: transform 0.3s;
+}
+
+.course-card:hover, .project-card:hover {
+    transform: scale(1.05);
+}
+
+.course-card h3, .project-card h3 {
+    color: #ffcb77;
+}

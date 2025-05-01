@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Dashboard | SkillHub</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/styles.css') }}">
+</head>
+<body>
+    <div class="dashboard-container">
+        <header class="header">
+            <h1>Welcome, {{ user.username }}!</h1>
+            <nav>
+                <a href="/">Home</a>
+                <a href="/logout">Logout</a>
+            </nav>
+        </header>
+
+        <section class="dashboard-content">
+            <h2>Your Courses</h2>
+            <div class="course-list">
+                <div class="course-card">
+                    <h3>Course 1</h3>
+                    <p>Progress: 80%</p>
+                    <a href="#" class="btn">View Details</a>
+                </div>
+                <div class="course-card">
+                    <h3>Course 2</h3>
+                    <p>Progress: 65%</p>
+                    <a href="#" class="btn">View Details</a>
+                </div>
+            </div>
+
+            <h2>Your Projects</h2>
+            <div class="project-list">
+                <div class="project-card">
+                    <h3>Project 1</h3>
+                    <p>Status: In Progress</p>
+                    <a href="#" class="btn">View Details</a>
+                </div>
+                <div class="project-card">
+                    <h3>Project 2</h3>
+                    <p>Status: Completed</p>
+                    <a href="#" class="btn">View Details</a>
+                </div>
+            </div>
+        </section>
+    </div>
+</body>
+</html>

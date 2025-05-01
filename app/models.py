@@ -1,10 +1,8 @@
-from app import app
-from flask import render_template
-import requests
+from app import db
+from flask_login import UserMixin
 
-@app.route('/')
-def home():
-    # Chuck Norris Joke API
-    response = requests.get("https://api.chucknorris.io/jokes/random")
-    joke = response.json().get("value", "No joke found.")
-    return render_template('index.html', joke=joke)
+class User(UserMixin, db.Model):
+    id = db.Column(db.Integer, primary_key=True)
+    username = db.Column(db.String(80), unique=True)
+    password = db.Column(db.String(120))
+    role = db.Column(db.String(20))  # 'student', 'instructor', 'admin'
