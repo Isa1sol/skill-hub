@@ -6,24 +6,28 @@ from flask_socketio import SocketIO
 from flask_cors import CORS
 from dotenv import load_dotenv
 
-# Load environment variables from .env if present
+# Load environment variables from .env file
 load_dotenv()
 
+# Initialize Flask app
 app = Flask(__name__)
+
+# Secret key for sessions
 app.secret_key = os.getenv("SECRET_KEY", "default-secret-key")
-app.config['SQLALCHEMY_DATABASE_URI'] = os.getenv("DATABASE_URL", "sqlite:///skillhub.db")
-app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
 
+# Database config (uses SQLite by default, PostgreSQL in production)
+app.config["SQLALCHEMY_DATABASE_URI"] = os.getenv("DATABASE_URL", "sqlite:///skillhub.db")
+app.config["SQLALCHEMY_TRACK_MODIFICATIONS"] = False
 
-# Extensions
+# Initialize extensions
 db = SQLAlchemy(app)
-socketio = SocketIO(app, cors_allowed_origins="*")
+socketio = SocketIO(app, cors_allowed_origins="*")  # Use eventlet in production
 CORS(app)
 
-# Flask-Login Manager setup
-login_manager = LoginManager(app)
-login_manager.login_view = 'login'  # Optional: Redirect to 'login' if not authenticated
+# Setup Flask-Login
+login_manager = LoginManager()
+login_manager.login_view = "login"  # Optional: redirects to login page if not logged in
 login_manager.init_app(app)
 
-# Import routes, models, and other modules after app is created
+# Import routes and other blueprints/modules
 from app import routes, models, chat, ai
