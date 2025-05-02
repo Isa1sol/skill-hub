@@ -1,6 +1,5 @@
-Flask
-Flask-Login
-Flask-SQLAlchemy
-Flask-Migrate
+flask
+flask_sqlalchemy
+flask_login
+flask_migrate
 gunicorn
-werkzeug
