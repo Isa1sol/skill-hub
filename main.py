@@ -1,7 +1,24 @@
-from app import create_app
-from app.extensions import socketio
+from flask import Flask
+from app.extensions import db, login_manager, socketio
+from app.routes import bp
+import os
 
-app = create_app()
+def create_app():
+    app = Flask(__name__)
+    app.config['SECRET_KEY'] = 'your-secret-key'
 
-if __name__ == "__main__":
-    socketio.run(app)
+    # Use DATABASE_URL from Render's environment variables
+    app.config['SQLALCHEMY_DATABASE_URI'] = os.environ.get("DATABASE_URL", "sqlite:///yourdatabase.db")
+
+    db.init_app(app)
+    login_manager.init_app(app)
+    socketio.init_app(app)
+
+    app.register_blueprint(bp)
+
+    # Create tables automatically if they don't exist
+    with app.app_context():
+        from app import models
+        db.create_all()
+
+    return app
