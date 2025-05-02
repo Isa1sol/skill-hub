@@ -1,25 +1,10 @@
-{% extends "base.html" %}
+{% extends 'base.html' %}
 {% block title %}Register{% endblock %}
 {% block content %}
-<h2 class="text-center">Create an Account</h2>
-<form method="POST" action="{{ url_for('auth.register') }}" class="mx-auto" style="max-width: 400px;">
-    {{ form.hidden_tag() }}
-    <div class="mb-3">
-        {{ form.username.label(class="form-label") }}
-        {{ form.username(class="form-control") }}
-    </div>
-    <div class="mb-3">
-        {{ form.email.label(class="form-label") }}
-        {{ form.email(class="form-control") }}
-    </div>
-    <div class="mb-3">
-        {{ form.password.label(class="form-label") }}
-        {{ form.password(class="form-control") }}
-    </div>
-    <div class="mb-3">
-        {{ form.confirm.label(class="form-label") }}
-        {{ form.confirm(class="form-control") }}
-    </div>
-    <button type="submit" class="btn btn-success w-100">Register</button>
+<h2>Register</h2>
+<form method="POST">
+    Username: <input type="text" name="username"><br>
+    Password: <input type="password" name="password"><br>
+    <input type="submit" value="Register">
 </form>
 {% endblock %}
