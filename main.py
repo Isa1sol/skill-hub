@@ -8,7 +8,7 @@ def create_app():
     app.config['SECRET_KEY'] = 'your-secret-key'
 
     # Use DATABASE_URL from Render's environment variables
-    app.config['SQLALCHEMY_DATABASE_URI'] = os.environ.get("DATABASE_URL", "sqlite:///yourdatabase.db")
+    app.config['SQLALCHEMY_DATABASE_URI'] = os.environ.get("DATABASE_URL")
 
     db.init_app(app)
     login_manager.init_app(app)
