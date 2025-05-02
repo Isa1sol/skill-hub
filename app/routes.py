@@ -73,3 +73,9 @@ def dashboard():
 def logout():
     logout_user()
     return redirect(url_for('main.home'))
+
+# 🔧 Initialize Database (Remove this route after running once)
+@bp.route('/initdb')
+def init_db():
+    db.create_all()  # This will create all tables in the database
+    return "Database initialized! Please remove this route once it's run.", 200
