@@ -1,0 +1,14 @@
+{% extends "base.html" %}
+{% block content %}
+<div class="dashboard-container">
+    <h1>📚 Instructor Dashboard</h1>
+    <p>Welcome, {{ user.username }}! Here's where you manage your courses and students.</p>
+    <div class="card">
+        <ul>
+            <li><a href="#">📄 Upload Course Material</a></li>
+            <li><a href="#">👨‍🎓 View Student Progress</a></li>
+            <li><a href="#">📢 Post Announcements</a></li>
+        </ul>
+    </div>
+</div>
+{% endblock %}

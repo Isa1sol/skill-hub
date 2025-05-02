@@ -1,23 +1,27 @@
 from flask import Flask
 from flask_sqlalchemy import SQLAlchemy
+from flask_login import LoginManager
 from flask_migrate import Migrate
+from flask_socketio import SocketIO
 
-app = Flask(__name__)
-app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:///your_database_name.db'  # Use SQLite for simplicity
-app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
-db = SQLAlchemy(app)
-migrate = Migrate(app, db)
+db = SQLAlchemy()
+login_manager = LoginManager()
+migrate = Migrate()
+socketio = SocketIO()
 
-# Define User model
-class User(db.Model):
-    id = db.Column(db.Integer, primary_key=True)
-    username = db.Column(db.String(80), unique=True, nullable=False)
-    password = db.Column(db.String(120), nullable=False)
-    role = db.Column(db.String(50), nullable=False)
+def create_app():
+    app = Flask(__name__)
+    app.config['SECRET_KEY'] = 'your-secret-key'
+    app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:///your_database.db'
+    app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
 
-# Create tables
-with app.app_context():
-    db.create_all()
+    db.init_app(app)
+    login_manager.init_app(app)
+    migrate.init_app(app, db)
+    socketio.init_app(app)
 
-if __name__ == '__main__':
-    app.run(debug=True)
+    # Import and register routes
+    from app.routes import bp as routes_bp
+    app.register_blueprint(routes_bp)
+
+    return app

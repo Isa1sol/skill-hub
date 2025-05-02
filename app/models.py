@@ -5,9 +5,8 @@ class User(UserMixin, db.Model):
     id = db.Column(db.Integer, primary_key=True)
     username = db.Column(db.String(80), unique=True, nullable=False)
     password = db.Column(db.String(120), nullable=False)
-    role = db.Column(db.String(20), nullable=False)  # 'student', 'instructor', 'admin'
+    role = db.Column(db.String(20), nullable=False)
 
-# ✅ Move the user_loader function AFTER defining the User class
 @login_manager.user_loader
 def load_user(user_id):
     return User.query.get(int(user_id))
