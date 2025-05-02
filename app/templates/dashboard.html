@@ -1,0 +1,10 @@
+{% extends "base.html" %}
+{% block title %}Dashboard{% endblock %}
+{% block content %}
+<h2 class="text-center">Welcome, {{ current_user.username }}!</h2>
+<p class="text-center">Here’s your dashboard. You’ll see courses and projects here.</p>
+<div class="text-center mt-4">
+    <a href="#" class="btn btn-outline-light">Create Course</a>
+    <a href="#" class="btn btn-light">Join Class</a>
+</div>
+{% endblock %}

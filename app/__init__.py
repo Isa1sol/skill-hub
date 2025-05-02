@@ -3,7 +3,15 @@ from flask import Flask
 from app.extensions import db, login_manager, socketio
 from app.routes import bp
 from flask_migrate import Migrate  # Import Migrate
+from .models import User
+from app.auth import auth_bp
+from app.main import main_bp
 
+app.register_blueprint(auth_bp)
+app.register_blueprint(main_bp)
+@login_manager.user_loader
+def load_user(user_id):
+    return User.query.get(int(user_id))
 def create_app():
     app = Flask(__name__, instance_relative_config=True)
 

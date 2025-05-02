@@ -1,20 +1,10 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <title>SkillHub - Home</title>
-    <link rel="stylesheet" href="{{ url_for('static', filename='css/postmodern.css') }}">
-</head>
-<body>
-
-<div class="shape one"></div>
-<div class="shape two"></div>
-
-<div class="container">
-    <h1>Welcome to SkillHub 🧠</h1>
-    <p>Collaborate. Create. Learn.</p>
-    <a href="/login"><button>Get Started</button></a>
+{% extends "base.html" %}
+{% block title %}Welcome to Skillhub{% endblock %}
+{% block content %}
+<h1 class="text-center">Welcome to Skillhub</h1>
+<p class="text-center">Empower your learning. Connect, collaborate, and grow.</p>
+<div class="text-center mt-4">
+    <a class="btn btn-light me-2" href="{{ url_for('auth.login') }}">Login</a>
+    <a class="btn btn-outline-light" href="{{ url_for('auth.register') }}">Register</a>
 </div>
-
-</body>
-</html>
+{% endblock %}
