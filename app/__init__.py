@@ -10,7 +10,7 @@ def create_app():
     os.makedirs(app.instance_path, exist_ok=True)
 
     # SQLite database file stored in instance/ directory
-    app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:///' + os.path.join(app.instance_path, 'app.db')
+    app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:///' + os.path.join(app.instance_path,'skillhub.db')
     app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
 
     db.init_app(app)
