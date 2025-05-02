@@ -2,6 +2,7 @@ import os
 from flask import Flask
 from app.extensions import db, login_manager, socketio
 from app.routes import bp
+from flask_migrate import Migrate  # Import Migrate
 
 def create_app():
     app = Flask(__name__, instance_relative_config=True)
@@ -17,6 +18,7 @@ def create_app():
     login_manager.init_app(app)
     socketio.init_app(app)
 
+    migrate = Migrate(app, db)  # Initialize Migrate
     app.register_blueprint(bp)
 
     return app
